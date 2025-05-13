@@ -10,12 +10,13 @@
     "Other"
   ],
   "activationEvents": [
+
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-      "command": "multicursorex.padding.pad",
+        "command": "multicursorex.padding.pad",
         "title": "MultiCursor++: Pad Selections/Cursors"
       },
       {
@@ -33,9 +34,16 @@
       {
         "command": "multicursorex.padding.lockOriginToMedian",
         "title": "MultiCursor++: Lock Origin to Selection/Cursor Median"
+      },
+      {
+        "command": "multicursorex.scope.on",
+        "title": "hello"
       }
+      
     ],
-    "keybindings":[]
+    "keybindings":[
+      
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
