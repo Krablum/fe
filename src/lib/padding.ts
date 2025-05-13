@@ -12,9 +12,20 @@ class Origin{
 
     constructor(selection : vscode.Selection | undefined, decoration : Decoration){
 
-        if(typeof(selection) === "undefined"){
+        if(selection === undefined){
 
-            throw error('Origin: Argument "selection" is undefined');
+            if(vscode.window.activeTextEditor === undefined){
+
+                vscode.window.showErrorMessage('Error: A Texteditor is Not Open | Origin: Argument "selection" returns as "undefined"');
+
+            }
+            
+            else{
+
+                vscode.window.showErrorMessage('Error: Something Went Wrong | Origin: Argument "selection" returns as "undefined"');
+            }
+
+            throw error('Origin: Argument "selection" returns as "undefined"');
         }
 
         this.selection = selection;
@@ -260,7 +271,7 @@ class Spacing{
 }
 
 
-export class padding{
+export class Padding{
 
     private static decorationFilePath : string;
     private static decorationOptions : object;
@@ -323,9 +334,22 @@ export class padding{
 
     }
 
+    private static checkEditor(){ // As vscode.window.activeTextEditor can possibly return as "undefined"
+        
+        if(vscode.window.activeTextEditor === undefined){
+
+            vscode.window.showErrorMessage('Error: A Texteditor is Not Open | Padding: vscode.window.activeTextEditor is undefined');
+            throw error('Padding: vscode.window.activeTextEditor returns as undefined');
+
+        }
+
+    }
+
     static pad(mediaPath: string) { //possibly make mutiple variations of these functions so i dont need to make a new Decoration object and make it shared
 
         return ()=>{
+
+            this.checkEditor();
 
             this.applyDecorationConfiguration(mediaPath);
 
@@ -354,6 +378,8 @@ export class padding{
 
         return ()=>{
 
+            this.checkEditor();
+
             this.applyDecorationConfiguration(mediaPath);
 
             if(this.currentOriginSelection === undefined){
@@ -375,6 +401,8 @@ export class padding{
     static originDown(mediaPath: string){
 
         return ()=>{
+
+            this.checkEditor();
 
             this.applyDecorationConfiguration(mediaPath);
 
@@ -399,9 +427,9 @@ export class padding{
 
         return ()=>{
 
+            this.checkEditor();
+
             this.lockOriginToMedianBool = !this.lockOriginToMedianBool;
-
-
 
             if(this.lockOriginToMedianBool === true || this.currentOriginSelection === undefined){
                 this.currentOriginSelection = this.selectionMedian();
@@ -423,6 +451,8 @@ export class padding{
     static showOrigin(mediaPath: string){
 
         return ()=>{
+
+            this.checkEditor();
             
             if(this.currentOriginSelection === undefined){
                 this.currentOriginSelection = this.selectionMedian();
