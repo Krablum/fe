@@ -37,7 +37,7 @@
       },
       {
         "command": "multicursorex.scope.on",
-        "title": "hello"
+        "title": "MultiCursor++: Turn On Scope-Based Cursor Mode"
       }
       
     ],

@@ -17,44 +17,34 @@ class symbolUtils{
     constructor(document: vscode.TextDocument){
 
         this.document = document;
-        
-        (async() =>{
-
-            const symbols = await vscode.commands.executeCommand<vscode.DocumentSymbol[]>('vscode.executeDocumentSymbolProvider', document.uri);
-
-            if(symbols === undefined){ //Symbols can possibly return as undefined
-
-                vscode.window.showErrorMessage('Error: Something Went Wrong | Scope: Symbols returns as "undefined"');
-                throw error('Scope: symbols returns as "undefined"');
-
-            }
-
-            this.symbols = symbols;
-
-            return symbols;
-
-        })();
     
     }
 
     async getSymbols(){
 
-        const symbols = await vscode.commands.executeCommand<vscode.DocumentSymbol[]>('vscode.executeDocumentSymbolProvider', this.document.uri);
+        const symbols = await vscode.commands.executeCommand<vscode.DocumentSymbol[]>('vscode.executeDocumentSymbolProvider', this.document.uri); //Executes a command which provides symbols which are like functions, variables, classes, etc...
 
         if(symbols === undefined){ //Symbols can possibly return as undefined
 
-            vscode.window.showErrorMessage('Error: Something Went Wrong | Scope: Symbols returns as "undefined"');
-            throw error('Scope: symbols returns as "undefined"');
+            vscode.window.showErrorMessage('Error: Something Went Wrong | Scope/getSymbols: "symbols" returns as "undefined"');
+            throw error('Scope/getSymbols: "symbols" returns as "undefined"');
 
         }
 
-        this.symbols = symbols;
+        this.symbols = symbols; 
 
         return symbols;
 
     }
 
-    findSymbol(selection: vscode.Selection){
+    findSymbol(selection: vscode.Selection | undefined){
+
+        if(selection ===  undefined){
+
+            vscode.window.showErrorMessage('Error: Something Went Wrong | Scope/findSymbol: "selection" returns as undefined');
+            throw error('Scope/findSymbols: "selection" returns as undefined');
+
+        }
         
         for(let symbol of this.symbols){
 
@@ -72,7 +62,7 @@ class Modes{
     callbackOff?: () => void;
     callbackSwitch?: () => void;
 
-    constructor(callbackOn?: () => void, callbackOff?: () => void, callbackSwitch?: () => void){
+    constructor(callbackOn?: () => void, callbackOff?: () => void, callbackSwitch?: () => void){ //Allow functions wiithin the modes methods 
 
         this.callbackOn = callbackOn;
         this.callbackOff = callbackOff;
@@ -119,12 +109,17 @@ export class Scope{
 
     }
 
-    static getCurrentSymbol(){
+    static async getCurrentSymbol(){
 
-        this.currentSymbol = new symbolUtils(vscode.window.activeTextEditor?.document!).findSymbol(vscode.window.activeTextEditor?.selection!);
+
+        const symbol = new symbolUtils(vscode.window.activeTextEditor?.document!);
+        await symbol.getSymbols(); 
+        this.currentSymbol = symbol.findSymbol(vscode.window.activeTextEditor?.selection);
+
+        console.log(this.currentSymbol);
 
     }
 
-    static modes = new Modes();
+    static modes = new Modes(this.getCurrentSymbol);
 
 }

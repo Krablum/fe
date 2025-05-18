@@ -1,5 +1,4 @@
-import { throws } from 'assert';
-import {assert, Console, error } from 'console';
+import {Console, error } from 'console';
 import * as vscode from 'vscode';
 
 // Facade Design Pattern
@@ -16,16 +15,16 @@ class Origin{
 
             if(vscode.window.activeTextEditor === undefined){
 
-                vscode.window.showErrorMessage('Error: A Texteditor is Not Open | Origin: Argument "selection" returns as "undefined"');
+                vscode.window.showErrorMessage('Error: A Texteditor is Not Open | Padding/OriginConstructor: Argument "selection" returns as undefined');
 
             }
             
             else{
 
-                vscode.window.showErrorMessage('Error: Something Went Wrong | Origin: Argument "selection" returns as "undefined"');
+                vscode.window.showErrorMessage('Error: Something Went Wrong | Padding/OriginConstructor: Argument "selection" returns as undefined');
             }
 
-            throw error('Origin: Argument "selection" returns as "undefined"');
+            throw error('Padding/OriginConstructor: Argument "selection" returns as undefined');
         }
 
         this.selection = selection;
@@ -338,8 +337,8 @@ export class Padding{
         
         if(vscode.window.activeTextEditor === undefined){
 
-            vscode.window.showErrorMessage('Error: A Texteditor is Not Open | Padding: vscode.window.activeTextEditor is undefined');
-            throw error('Padding: vscode.window.activeTextEditor returns as undefined');
+            vscode.window.showErrorMessage('Error: A Texteditor is Not Open | Padding/checkEditor: "vscode.window.activeTextEditor" returns as undefined');
+            throw error('Padding/checkEditor: "vscode.window.activeTextEditor" returns as undefined');
 
         }
 
