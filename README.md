@@ -7,9 +7,9 @@ Right now, Multi-Cursor++ is not planned to be in productive use yet. However, n
 ## Errors
 Errors within in this extension are indicate through the vscode frontend aswell as the extension controller itself
 
-Errors are specificed like `Error: actionNeeded | module/classMember: errorMessage` wheres:
+Errors are specificed like `Error: userReason | module/classMember: errorMessage` wheres:
 
-- `actionNeeded` will describe the needed action for the user to fix the said error, if `actionNeeded` is shown as `"Something Went Wrong"` then this error is not repairable through the user-side.
+- `userReason` will describe the reason for the error which is fixable on the user-end. If `userReason` is shown as `"Something Went Wrong"` then this error is due to the extension or vscode-end.
 
 - `module` describes the `modules` within lib API where the error was returned in, if the error was initiated within a constructer of a class then the error message will be structure as `classConstructer`.
 

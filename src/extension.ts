@@ -19,6 +19,8 @@ export function activate(context: vscode.ExtensionContext) {
 		 return path.join('\\') + '\\media\\origin.svg';
 	})();
 	
+
+	
 	const disposablePadding = vscode.commands.registerCommand("multicursorex.padding.pad" ,  multiCurEx.Padding.pad(mediaPath));	
 	const disposableOriginUp = vscode.commands.registerCommand("multicursorex.padding.originUp" , multiCurEx.Padding.originUp(mediaPath));	
 	const disposableOriginDown = vscode.commands.registerCommand("multicursorex.padding.originDown" , multiCurEx.Padding.originDown(mediaPath));	

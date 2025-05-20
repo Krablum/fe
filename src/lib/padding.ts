@@ -1,5 +1,6 @@
 import {Console, error } from 'console';
 import * as vscode from 'vscode';
+import { MultiCursorUtils } from './index';
 
 // Facade Design Pattern
 
@@ -333,22 +334,11 @@ export class Padding{
 
     }
 
-    private static checkEditor(){ // As vscode.window.activeTextEditor can possibly return as "undefined"
-        
-        if(vscode.window.activeTextEditor === undefined){
-
-            vscode.window.showErrorMessage('Error: A Texteditor is Not Open | Padding/checkEditor: "vscode.window.activeTextEditor" returns as undefined');
-            throw error('Padding/checkEditor: "vscode.window.activeTextEditor" returns as undefined');
-
-        }
-
-    }
-
     static pad(mediaPath: string) { //possibly make mutiple variations of these functions so i dont need to make a new Decoration object and make it shared
 
         return ()=>{
 
-            this.checkEditor();
+            MultiCursorUtils.editorIsDefined();
 
             this.applyDecorationConfiguration(mediaPath);
 
@@ -377,7 +367,7 @@ export class Padding{
 
         return ()=>{
 
-            this.checkEditor();
+            MultiCursorUtils.editorIsDefined();
 
             this.applyDecorationConfiguration(mediaPath);
 
@@ -401,7 +391,7 @@ export class Padding{
 
         return ()=>{
 
-            this.checkEditor();
+            MultiCursorUtils.editorIsDefined();
 
             this.applyDecorationConfiguration(mediaPath);
 
@@ -426,7 +416,7 @@ export class Padding{
 
         return ()=>{
 
-            this.checkEditor();
+            MultiCursorUtils.editorIsDefined();
 
             this.lockOriginToMedianBool = !this.lockOriginToMedianBool;
 
@@ -451,7 +441,7 @@ export class Padding{
 
         return ()=>{
 
-            this.checkEditor();
+            MultiCursorUtils.editorIsDefined();
             
             if(this.currentOriginSelection === undefined){
                 this.currentOriginSelection = this.selectionMedian();
